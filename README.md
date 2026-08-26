@@ -1,4 +1,4 @@
-# Airfoil-sa:v-calculator
+# AeroCalc: an airfoil-sa:v-calculator
 
 This project is a Python implementation of my individual academic research project. In the original paper, I investigated the surface area-to-volume (SA:V) ratio of bodies of revolution generated from different airfoil shapes, specifically comparing a Sears-Haack body, a NACA0012 airfoil, and a custom airfoil design.
 
