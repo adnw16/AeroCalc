@@ -5,9 +5,11 @@ from scipy.integrate import quad
 import matplotlib.pyplot as plt
 import os
 import webbrowser
-from sys import argv
+import sys
+from pytsfoil import run_airfoil_analysis
 
-# 1. Function to fetch airfoil coordinates from the API
+
+# fetch api key from foil.tools
 def get_airfoil_coords(airfoil_name):
     url = f"https://foil.tools/api/v1/airfoils/{airfoil_name}"
     try:
@@ -59,7 +61,7 @@ def fit_upper_surface(coords, degree=7):
 def calculate_r_squared(y_true, y_pred): #using total and residual sum of squares
     ss_res = np.sum((y_true - y_pred) ** 2) 
     ss_tot = np.sum((y_true - np.mean(y_true)) ** 2)
-    return 1 - (ss_res / ss_tot)
+    return 1 - (ss_res / ss_tot) #how much variance is explained by the polyfit model
 
 # integral function definitions
 def volume(f, a, b):
@@ -68,8 +70,8 @@ def volume(f, a, b):
 
 def surface_area(f, a, b): #using derived formula from paper
     def integrand(x):
-        h = 1e-6 #step size
-        # first principle derivative
+        h = 1e-6 #step size for numeric integration
+        # first principle derivative definition
         f_prime = (f(x + h) - f(x - h)) / (2 * h)
         return 2 * np.pi * f(x) * np.sqrt(1 + f_prime**2)
     return quad(integrand, a, b)[0]
@@ -77,7 +79,7 @@ def surface_area(f, a, b): #using derived formula from paper
 #main execution
 if __name__ == "__main__":
     # user input for name of airfoil
-    airfoil_name = argv[1].strip().lower()
+    airfoil_name = sys.argv[1].strip().lower()
     coords = get_airfoil_coords(airfoil_name)
     
     if coords is None:
