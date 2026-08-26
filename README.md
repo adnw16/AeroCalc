@@ -7,7 +7,7 @@ Note: Chart visualizations and output styling were accelerated using AI generati
 **The paper derived the mathematical formulae for:**
 - Volume
 - Surface Area
-- The Sears-Haack body formulagit 
+- The Sears-Haack body formula
 
 **This project extends that work by:**
 - Automating the data fetching process via the [Foil.tools API](https://foil.tools/api-docs)
